@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MermasDiésel App</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4CAF50" />
+  <style>
+div {
+  margin-bottom: 15px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f2f1, #ffffff);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 1.4em;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .container {
+      max-width: 350px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      background-color: #388E3C;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .contact-buttons a {
+      display: inline-block;
+      margin: 10px;
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+    }
+
+    img.mina {
+      width: 100%;
+      margin-top: 20px;
+      opacity: 0.85;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="LOGO.png" alt="Logo MermasDiésel" />
+  </header>
+
+  <h1>MermasDiésel — Cálculo referencial</h1>
+
+  <div class="container">
+    <label>Seleccione el API que más se acerque al valor indicado en su guía:</label>
+    <select id="api">
+      <option value="" disabled selected>Seleccione</option>
+      <option value="33">33</option>
+      <option value="35">35</option>
+      <option value="37">37</option>
+      <option value="39">39</option>
+    </select>
+
+    <label style="margin-top: 10px;">Temperatura (°F) en origen según guía:</label>
+    <input type="number" id="tempOrigen" />
+
+    <label style="margin-top: 10px;">Temperatura (°F) en cisterna en destino:</label>
+    <input type="number" id="tempCisterna" />
+
+    <label style="margin-top: 10px;">Galones según guia:</label>
+    <input type="number" id="galones" />
+
+    <button onclick="calcularMerma()">Calcular Merma</button>
+
+    <p id="resultado" style="margin-top: 15px; font-weight: bold;"></p>
+
+    <img src="mina-cisterna.png" alt="Camión cisterna en mina" class="mina" />
+
+    <div class="contact-buttons">
+      <a href="mailto:bchiroque@gmail.com">📧 Contáctame</a>
+      <a href="https://wa.me/51932772688" target="_blank">
+  <img src="whatsapp-icon.png" alt="WhatsApp" style="height:24px; vertical-align:middle; margin-right:8px;">
+  WhatsApp
+</a>
+
+    </div>
+  </div>
+
+  <footer>
+    MermasDiésel © 2024 — BrayChp
+  </footer>
+
+  <script>
+    function calcularMerma() {
+      const api = parseInt(document.getElementById("api").value);
+      const tempOrigen = parseFloat(document.getElementById("tempOrigen").value);
+      const tempCisterna = parseFloat(document.getElementById("tempCisterna").value);
+      const galones = parseFloat(document.getElementById("galones").value);
+
+      const factores = {
+        33: 0.000454,
+        35: 0.000461,
+        37: 0.000468,
+        39: 0.000479
+      };
+
+      if (!factores[api] || isNaN(tempOrigen) || isNaN(tempCisterna) || isNaN(galones)) {
+        document.getElementById("resultado").innerText = "Completa todos los campos correctamente.";
+        return;
+      }
+
+      const deltaTemp = tempCisterna - tempOrigen;
+      const factor = factores[api];
+      const merma = deltaTemp * galones * factor;
+
+      document.getElementById("resultado").innerText = 
+        `Merma estimada: ${merma.toFixed(2)} galones.`;
+    }
+  </script>
+</body>
+</html>
