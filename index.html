@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Merma Diesel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <style>
         :root {
             --color-primary: #2e7d32;
@@ -12,7 +16,7 @@
             --color-whatsapp: #25D366;
             --color-expansion: #d32f2f;
             --border-radius: 4px;
-            --font-size-base: 16px; /* Tamaño base aumentado */
+            --font-size-base: 16px;
         }
         
         * {
@@ -24,7 +28,10 @@
         body {
             font-family: 'Arial', sans-serif;
             font-size: var(--font-size-base);
-            background: url('mina-cisterna.png') no-repeat center/cover fixed;
+             background: url('assets/images/mina-cisterna.png') no-repeat center center fixed;
+  background-size: cover;
+  /* Fallback para mientras carga */
+  background-color: #f0f0f0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -36,7 +43,7 @@
 
         .container {
             width: 100%;
-            max-width: 420px; /* Ligeramente más ancho */
+            max-width: 420px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -51,7 +58,7 @@
         }
 
         .logo img {
-            width: 160px; /* Logo ligeramente más grande */
+            width: 160px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -70,15 +77,15 @@
             margin-bottom: 6px;
             color: #333;
             font-weight: bold;
-            font-size: 15px; /* Texto más grande */
+            font-size: 15px;
         }
 
         select, input {
             width: 100%;
-            padding: 10px; /* Más espacio interno */
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
-            font-size: 15px; /* Texto más grande */
+            font-size: 15px;
             background-color: rgba(255, 255, 255, 0.9);
         }
 
@@ -98,7 +105,7 @@
             padding: 12px;
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 16px; /* Texto más grande */
+            font-size: 16px;
             width: 100%;
             margin-top: 10px;
             transition: background-color 0.3s;
@@ -115,13 +122,13 @@
             background-color: rgba(232, 245, 233, 0.9);
             border-radius: var(--border-radius);
             text-align: center;
-            font-size: 17px; /* Texto más grande */
+            font-size: 17px;
             display: none;
         }
 
         .result-value {
             font-weight: bold;
-            font-size: 22px; /* Texto más grande */
+            font-size: 22px;
         }
 
         .expansion {
@@ -134,12 +141,28 @@
 
         .disclaimer {
             margin-top: 22px;
-            font-size: 13px; /* Texto ligeramente más grande */
+            font-size: 13px;
             color: #333;
             line-height: 1.5;
             background-color: rgba(255, 255, 255, 0.8);
             padding: 12px;
             border-radius: var(--border-radius);
+        }
+
+        .share-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .play-store-btn {
@@ -153,6 +176,10 @@
             text-decoration: none;
             font-weight: bold;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .play-store-btn:hover {
@@ -181,7 +208,7 @@
         @media (max-width: 480px) {
             body {
                 padding: 10px;
-                font-size: 15px; /* Tamaño base más grande en móviles */
+                font-size: 15px;
             }
             
             .container {
@@ -193,12 +220,15 @@
             }
         }
     </style>
+  <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+</head>
 </head>
 <body>
-    <div class="container">
+     <div class="container">
         <div class="logo-header">
             <div class="logo">
-                <img src="LOGO.png" alt="Logo" loading="lazy">
+                <img src="assets/images/LOGO.png" alt="Logo" loading="lazy">
             </div>
         </div>
         
@@ -241,8 +271,13 @@
                 <i class="fab fa-google-play"></i> Descargar en Play Store
             </a>
             
+            <!-- Botón para compartir -->
+            <button id="share-btn" class="share-btn">
+                <i class="fas fa-share-alt"></i> Compartir esta aplicación
+            </button>
+            
             <div class="disclaimer">
-                Éste valor aproximado es una referencia útil: La merma total requiere, mediante un informe técnico a SUNAT, incluir las mermas como por almacenamiento, etc. Para consultas a: <a href="mailto:bchiroque@gmail.com">bchiroque@gmail.com</a> o al <a href="https://wa.me/51932772688" class="whatsapp-link"><i class="fab fa-whatsapp"></i>WhatsApp 932772688</a>
+                Éste es un valor aproximado y útil. La merma final requiere, mediante un informe técnico para SUNAT, incluir las mermas como la de  almacenamiento, etc. Para consultas escribir a: <a href="mailto:bchiroque@gmail.com">bchiroque@gmail.com</a> y/o <a href="https://wa.me/51932772688" class="whatsapp-link"><i class="fab fa-whatsapp"></i>WhatsApp 932772688</a>
             </div>
             
             <div class="install-info">
@@ -254,7 +289,13 @@
     </div>
 
     <script>
-        // Deshabilitar clic derecho y selección
+      // Registra el Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registrado', reg))
+                .catch(err => console.log('Error SW', err));
+        }        
+// Deshabilitar clic derecho y selección
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('selectstart', e => e.preventDefault());
 
@@ -263,7 +304,7 @@
         const playStoreLink = document.getElementById('play-store-link');
         
         if (isAndroid) {
-            playStoreLink.style.display = 'block';
+            playStoreLink.style.display = 'flex';
             // Reemplaza con tu enlace real cuando tengas la app en Play Store
             playStoreLink.href = 'https://play.google.com/store/apps/details?id=com.tupaquete.app';
         }
@@ -275,19 +316,8 @@
             deferredPrompt = e;
             
             const installBtn = document.createElement('button');
-            installBtn.textContent = '📲 Instalar App';
-            installBtn.style.cssText = `
-                margin: 15px 0 0;
-                padding: 12px;
-                background-color: #2e7d32;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                width: 100%;
-                cursor: pointer;
-                font-size: 15px;
-                font-weight: bold;
-            `;
+            installBtn.className = 'share-btn';
+            installBtn.innerHTML = '<i class="fas fa-download"></i> Instalar App';
             
             installBtn.addEventListener('click', () => {
                 deferredPrompt.prompt();
@@ -299,6 +329,32 @@
             });
             
             document.querySelector('.install-info').before(installBtn);
+        });
+
+        // Función para compartir
+        document.getElementById('share-btn').addEventListener('click', async () => {
+            const shareData = {
+                title: 'Calculadora Merma Diesel',
+                text: 'Calcula la merma por temperatura en combustibles - ¡Muy útil para el sector petrolero!',
+                url: window.location.href
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback para desktop
+                    const dummy = document.createElement('input');
+                    document.body.appendChild(dummy);
+                    dummy.value = window.location.href;
+                    dummy.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummy);
+                    alert('¡Enlace copiado al portapapeles!\nPega el enlace para compartir: ' + window.location.href);
+                }
+            } catch (err) {
+                console.log('Error al compartir:', err);
+            }
         });
 
         // Cálculo de merma

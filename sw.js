@@ -1,10 +1,12 @@
-const CACHE_NAME = 'merma-diesel-v1';
+const CACHE_NAME = 'merma-diesel-v3';
 const ASSETS = [
   '/',
   '/index.html',
-  '/LOGO.png',
-  '/mina-cisterna.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/assets/images/LOGO.png',
+  '/assets/images/mina-cisterna.png',
+  '/assets/icons/icon-192.png',
+  '/assets/icons/icon-512.png'
 ];
 
 self.addEventListener('install', (e) => {
