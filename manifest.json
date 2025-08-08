@@ -1,20 +1,20 @@
 {
-  "name": "MermasDiésel",
-  "short_name": "MermasDiésel",
-  "start_url": "index.html",
+  "name": "Calculadora Merma Diesel",
+  "short_name": "MermaDiesel",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "theme_color": "#2e7d32",
   "icons": [
     {
-      "src": "logo-icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
-      "src": "logo-icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }

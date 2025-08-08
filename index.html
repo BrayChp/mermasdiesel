@@ -1,166 +1,281 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MermasDiésel App</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#4CAF50" />
-  <style>
-div {
-  margin-bottom: 15px;
-}
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-input, textarea {
-  width: 100%;
-  padding: 8px;
-}
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0f2f1, #ffffff);
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Merma Diesel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #2e7d32;
+            --color-primary-hover: #1b5e20;
+            --color-whatsapp: #25D366;
+            --border-radius: 4px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('mina-cisterna.png') no-repeat center/cover fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-    header {
-      background-color: white;
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            overflow: hidden;
+        }
 
-    header img {
-      height: 60px;
-    }
+        .logo-header {
+            background-color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
 
-    h1 {
-      color: #4CAF50;
-      font-size: 1.4em;
-      text-align: center;
-      margin: 20px 0;
-    }
+        .logo img {
+            width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
-    .container {
-      max-width: 350px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+        .form-content {
+            padding: 15px;
+        }
 
-    button {
-      background-color: #388E3C;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      margin-top: 20px;
-      font-weight: bold;
-    }
+        .form-group {
+            margin-bottom: 12px;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #666;
-    }
+        label {
+            display: block;
+            margin-bottom: 4px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
-    .contact-buttons a {
-      display: inline-block;
-      margin: 10px;
-      text-decoration: none;
-      padding: 10px 15px;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 5px;
-    }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
 
-    img.mina {
-      width: 100%;
-      margin-top: 20px;
-      opacity: 0.85;
-      border-radius: 8px;
-    }
-  </style>
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 12px;
+            padding-right: 25px;
+        }
+
+        button {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 8px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(232, 245, 233, 0.8);
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 16px;
+            display: none;
+        }
+
+        .result-value {
+            font-weight: bold;
+            color: var(--color-primary);
+            font-size: 20px;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #333;
+            line-height: 1.4;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: var(--border-radius);
+        }
+
+        .whatsapp-link {
+            color: var(--color-whatsapp);
+            text-decoration: none;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .whatsapp-link i {
+            margin-right: 4px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img src="LOGO.png" alt="Logo MermasDiésel" />
-  </header>
-
-  <h1>MermasDiésel — Cálculo referencial</h1>
-
-  <div class="container">
-    <label>Seleccione el API que más se acerque al valor indicado en su guía:</label>
-    <select id="api">
-      <option value="" disabled selected>Seleccione</option>
-      <option value="33">33</option>
-      <option value="35">35</option>
-      <option value="37">37</option>
-      <option value="39">39</option>
-    </select>
-
-    <label style="margin-top: 10px;">Temperatura (°F) en origen según guía:</label>
-    <input type="number" id="tempOrigen" />
-
-    <label style="margin-top: 10px;">Temperatura (°F) en cisterna en destino:</label>
-    <input type="number" id="tempCisterna" />
-
-    <label style="margin-top: 10px;">Galones según guia:</label>
-    <input type="number" id="galones" />
-
-    <button onclick="calcularMerma()">Calcular Merma</button>
-
-    <p id="resultado" style="margin-top: 15px; font-weight: bold;"></p>
-
-    <img src="mina-cisterna.png" alt="Camión cisterna en mina" class="mina" />
-
-    <div class="contact-buttons">
-      <a href="mailto:bchiroque@gmail.com">📧 Contáctame</a>
-      <a href="https://wa.me/51932772688" target="_blank">
-  <img src="whatsapp-icon.png" alt="WhatsApp" style="height:24px; vertical-align:middle; margin-right:8px;">
-  WhatsApp
-</a>
-
+    <div class="container">
+        <div class="logo-header">
+            <div class="logo">
+                <img src="LOGO.png" alt="Logo" loading="lazy">
+            </div>
+        </div>
+        
+        <div class="form-content">
+            <div class="form-group">
+                <label for="api">Seleccione el API más cercano al de su guía:</label>
+                <select id="api">
+                    <option value="">Seleccione...</option>
+                    <option value="33">33</option>
+                    <option value="35">35</option>
+                    <option value="37">37</option>
+                    <option value="39">39</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="temp-origen">Temperatura (°F) en origen según guía:</label>
+                <input type="number" id="temp-origen" placeholder="Temperatura origen">
+            </div>
+            
+            <div class="form-group">
+                <label for="temp-destino">Temperatura (°F) en cisterna en destino:</label>
+                <input type="number" id="temp-destino" placeholder="Temperatura destino">
+            </div>
+            
+            <div class="form-group">
+                <label for="galones">Galones según guía:</label>
+                <input type="number" id="galones" placeholder="Cantidad de galones">
+            </div>
+            
+            <button id="calcular">Merma esperada por temperatura</button>
+            
+            <div class="result" id="resultado">
+                <span id="tipo-merma"></span>
+                <span class="result-value" id="merma-resultado">0.00</span> galones
+            </div>
+            
+            <div class="disclaimer">
+                Éste es un valor muy aproximado en la llegada de la cisterna. La merma exacta requiere, mediante un informe técnico a SUNAT, incluir mermas como por almacenamiento, etc. Para consultas escríbe a: <a href="mailto:bchiroque@gmail.com">bchiroque@gmail.com</a> o al <a href="https://wa.me/51932772688" class="whatsapp-link"><i class="fab fa-whatsapp"></i>WhatsApp 932772688</a>
+                <p style="margin-top: 10px; font-size: 11px;">
+                    Instálala en tu teléfono: 
+                    <strong>Android</strong> (Chrome → Menú → "Agregar a pantalla inicio") | 
+                    <strong>iPhone</strong> (Safari → Compartir → "Agregar a inicio")
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <footer>
-    MermasDiésel © 2024 — BrayChp
-  </footer>
+    <script>
+        // Deshabilitar clic derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 
-  <script>
-    function calcularMerma() {
-      const api = parseInt(document.getElementById("api").value);
-      const tempOrigen = parseFloat(document.getElementById("tempOrigen").value);
-      const tempCisterna = parseFloat(document.getElementById("tempCisterna").value);
-      const galones = parseFloat(document.getElementById("galones").value);
+        // Deshabilitar selección de texto
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
 
-      const factores = {
-        33: 0.000454,
-        35: 0.000461,
-        37: 0.000468,
-        39: 0.000479
-      };
+        // Instalación PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            const installBtn = document.createElement('button');
+            installBtn.textContent = '📲 Instalar App';
+            installBtn.style.cssText = `
+                margin: 10px 0;
+                padding: 10px;
+                background-color: #2e7d32;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                width: 100%;
+                cursor: pointer;
+            `;
+            
+            installBtn.addEventListener('click', () => {
+                e.prompt();
+            });
+            
+            document.querySelector('.disclaimer').before(installBtn);
+        });
 
-      if (!factores[api] || isNaN(tempOrigen) || isNaN(tempCisterna) || isNaN(galones)) {
-        document.getElementById("resultado").innerText = "Completa todos los campos correctamente.";
-        return;
-      }
-
-      const deltaTemp = tempCisterna - tempOrigen;
-      const factor = factores[api];
-      const merma = deltaTemp * galones * factor;
-
-      document.getElementById("resultado").innerText = 
-        `Merma estimada: ${merma.toFixed(2)} galones.`;
-    }
-  </script>
+        // Cálculo de merma
+        document.getElementById('calcular').addEventListener('click', function() {
+            const api = parseFloat(document.getElementById('api').value);
+            const tempOrigen = parseFloat(document.getElementById('temp-origen').value);
+            const tempDestino = parseFloat(document.getElementById('temp-destino').value);
+            const galones = parseFloat(document.getElementById('galones').value);
+            
+            if (isNaN(api) || isNaN(tempOrigen) || isNaN(tempDestino) || isNaN(galones)) {
+                alert('Por favor complete todos los campos correctamente.');
+                return;
+            }
+            
+            let factor;
+            switch(api) {
+                case 33: factor = 0.000454; break;
+                case 35: factor = 0.000461; break;
+                case 37: factor = 0.000468; break;
+                case 39: factor = 0.000479; break;
+                default: factor = 0;
+            }
+            
+            const diferenciaTemp = tempDestino - tempOrigen;
+            const merma = diferenciaTemp * galones * factor;
+            
+            const tipoMerma = document.getElementById('tipo-merma');
+            if (merma > 0) {
+                tipoMerma.textContent = 'Expansión de ';
+                tipoMerma.style.color = '#d32f2f'; // Rojo para expansión
+            } else {
+                tipoMerma.textContent = 'Reducción de ';
+                tipoMerma.style.color = '#2e7d32'; // Verde para reducción
+            }
+            
+            document.getElementById('merma-resultado').textContent = Math.abs(merma).toFixed(2);
+            document.getElementById('resultado').style.display = 'block';
+        });
+    </script>
 </body>
 </html>
